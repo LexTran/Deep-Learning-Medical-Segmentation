@@ -61,6 +61,12 @@ parse.add_argument(
     default=None,
     dest="log",
     help="log path")
+parse.add_argument(
+    "--ckpt",
+    type=str,
+    default=None,
+    dest="ckpt",
+    help="checkpoint to use")
 opts = parse.parse_args()
 
 args = {
@@ -142,7 +148,12 @@ def train():
     if not os.path.exists(ckpt_path):
         os.makedirs(ckpt_path)
     net = Test_Model[args['model_name']](args['n_classes'], 1).to('cuda:0') # BG is a class
-    init_weights(net, 'kaiming')
+    if opts.ckpt is None:
+        init_weights(net, 'kaiming')
+    else:
+        checkpoint = torch.load(opts.ckpt, map_location='cpu')
+        net.load_state_dict(checkpoint)
+
     if args['vis']:
         net.encoder_in.register_forward_hook(hook_fn)
         net.decoder1.register_forward_hook(hook_fn)
