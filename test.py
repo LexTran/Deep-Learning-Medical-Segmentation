@@ -16,7 +16,7 @@ import SimpleITK as sitk
 
 from model.csnet_3d import CSNet3D
 from model.unet3d import UNet3D
-from dataloader.npy_3d_Loader import *
+from dataloader.dataset import *
 from postprocess.keep_the_largest_area import get_aorta_branch
 from postprocess.keep_the_largest_area import backpreprcess as postprocess
 from postprocess.get_patch import get_patch_new
