@@ -7,14 +7,13 @@ import torch.nn.functional as F
 
 # classes, channels
 class UNet3D(nn.Module):
-    def __init__(self, classes=3,in_channels=1,  init_features=16):
+    def __init__(self, classes=3, in_channels=1, **opt):
         """
         Implementations based on the Unet3D paper: https://arxiv.org/abs/1606.06650
         """
-
         super(UNet3D, self).__init__()
 
-        features = init_features
+        features = 16
         self.encoder_in = UNet3D._block(in_channels, features, name="enc1")
         self.pool1 = nn.MaxPool3d(kernel_size=2, stride=2)
         self.encoder2 = UNet3D._block(features, features * 2, name="enc2")

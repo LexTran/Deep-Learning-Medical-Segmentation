@@ -82,7 +82,7 @@ args = {
     'num_workers': 8,
     'n_classes': 4, # seg classes, max num of label+1
     'log_path': f'./logs/{opts.log}/',
-    'vis': True, # whether to visualize feature maps
+    'vis': False, # whether to visualize feature maps
     'sw_batch_size': 4
 }
 
@@ -147,7 +147,7 @@ def adjust_lr(optimizer, base_lr, iter, max_iter, power=0.9):
 def train():
     if not os.path.exists(ckpt_path):
         os.makedirs(ckpt_path)
-    net = Test_Model[args['model_name']](args['n_classes'], 1).to('cuda:0') # BG is a class
+    net = Test_Model[args['model_name']](args['n_classes'], 1, **args).to('cuda:0') # BG is a class
     if opts.ckpt is None:
         init_weights(net, 'kaiming')
     else:

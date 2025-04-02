@@ -241,7 +241,7 @@ class MSFA(nn.Module):
 
 
 class CSNet3D(nn.Module):
-    def __init__(self, classes, channels):
+    def __init__(self, classes, channels, **opt):
         """
         :param classes: the object classes number.
         :param channels: the channels of the input image.
