@@ -36,7 +36,7 @@ from model.baselines import UnetPP, VNet, UNETR, SwinUNETR
 from model.csnet_3d import CSNet3D
 from model.unet3d import UNet3D
 from model.DSCNet import DSCNet
-from dataloader.npy_3d_Loader import Data
+from dataloader.dataset import Data
 from utils.evaluation_metrics3D import metrics_3d, Dice_3d
 from utils.model_init import init_weights
 from utils.losses import WeightedCrossEntropyLoss
@@ -314,7 +314,6 @@ def model_eval(net, epoch):
 if __name__ == '__main__':
     print("______________________")
     # load train dataset
-    # train_data = Data(args['data_path'], args['folder'], args['input_shape'], train=True, device=torch.device('cuda:0'))
     train_images = sorted(glob.glob(os.path.join(args['data_path'], "imagesTr", "*.nii.gz")))
     train_labels = sorted(glob.glob(os.path.join(args['data_path'], "labelsTr", "*.nii.gz")))
     data_dicts = [{"img": image_name, "label": label_name} for image_name, label_name in zip(train_images, train_labels)]
