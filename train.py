@@ -32,7 +32,7 @@ from monai.data import decollate_batch
 from monai.metrics import DiceMetric, MeanIoU
 from monai.inferers import sliding_window_inference
 
-from model.baselines import UnetPP, VNet, UNETR, SwinUNETR
+from model.baselines import UnetPP, VNet, UNETR, SwinUNETR, SegResNet
 from model.csnet_3d import CSNet3D
 from model.unet3d import UNet3D
 from model.DSCNet import DSCNet
@@ -71,8 +71,8 @@ opts = parse.parse_args()
 
 args = {
     'data_path': f'/opt/data/nvme3/yuelele/CAS-Net/data/{opts.data}/',
-    'epochs': 100,
-    'input_shape': (128, 192, 192),
+    'epochs': 200,
+    'input_shape': (96, 128, 128),
     'snapshot': 20,
     'test_step': 10,
     'model_path': './save_models_randomcrop',
@@ -90,10 +90,11 @@ Test_Model = {
     'CSNet': CSNet3D,
     'UNet': UNet3D,
     'DSCNet': DSCNet,
-    'Unet++': UnetPP,
+    'UNet++': UnetPP,
     'VNet': VNet,
     'UNETR': UNETR,
     'SwinUNETR': SwinUNETR,
+    'SegResNet': SegResNet,
 }
 
 best_score = [0]
@@ -283,7 +284,10 @@ def model_eval(net, epoch):
             label = batch['label'].to('cuda:0')
             label = label.to(torch.int64)
             D = label.shape[2]
-            roi_size = (128, 128, 128)
+            if 'UNETR' in args['model_name']:
+                roi_size = args['input_shape']
+            else:
+                roi_size = (128, 128, 128)
             sw_batch_size=args['sw_batch_size']
             pred_val = sliding_window_inference(image, roi_size, sw_batch_size, net)
             if args['vis']:

@@ -58,7 +58,10 @@ As you can see, I registered the hook to `encoder_in` and `decoder1` layers, the
 
 - [X] UNet
 - [X] CAS-Net
-- [X] MONAI Nets
+- [X] VNet (MONAI)
+- [X] UNETR (MONAI)
+- [X] SwinUNETR (MONAI)
+- [X] SegResNet (MONAI)
 - [X] Feature map visualization
 - [X] Continue training from checkpoint
 - [X] In-training results visualized logs
@@ -68,6 +71,7 @@ As you can see, I registered the hook to `encoder_in` and `decoder1` layers, the
 - [ ] test script
 - [ ] DSCNet
 - [ ] SSL
+- [ ] nnUnet
 
 ## Acknowledgements
 
