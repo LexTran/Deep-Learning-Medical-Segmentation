@@ -47,7 +47,20 @@ class SwinUNETR(nn.Module):
         :param channels: the channels of the input image.
         """
         super(SwinUNETR, self).__init__()
-        self.model = nets.SwinUNETR(in_channels=channels, out_channels=classes, img_size=opt['input_shape'])
+        self.model = nets.SwinUNETR(in_channels=channels, out_channels=classes, img_size=opt['input_shape'], feature_size=48, use_checkpoint=True)
+
+    def forward(self, x):
+        return self.model(x)
+
+
+class SegResNet(nn.Module):
+    def __init__(self, classes, channels, **opt):
+        """
+        :param classes: the object classes number.
+        :param channels: the channels of the input image.
+        """
+        super(SegResNet, self).__init__()
+        self.model = nets.SegResNetDS(in_channels=channels, out_channels=classes, resolution=opt['input_shape'])
 
     def forward(self, x):
         return self.model(x)
