@@ -1,4 +1,4 @@
-# Coronary Artery Segmentation Nets
+# Deep Learning Medical Segmentation
 
 This repo is designed for integration of common coronary artery segmentation networks (I have only test it on coronary artery CTA data, but should work for most CT data), you can modify it to fit your data, that should be easy.
 
@@ -43,6 +43,16 @@ If you want to change the net you are training, you can simply change the model 
 
 I have split the training set into training and validation sets at a ratio of 9:1 in train.py, so you don't have to split validation set yourself, but this would cause the training process slightly different each time you run it, it is totally normal, so don't panic~
 
+## Test
+
+For testing, replace the output path and ckpt location in the test script and then run it as follows:
+
+```shell
+sh test.sh
+```
+
+This will save the predictions to the location you want.
+
 ## Visualization
 
 For convenience, I designed a hook to get the middle feature map, however, it may not working for all nets due to different network implementation. If you want to use this feature, remember to modify following codes to fit your network implementation.
@@ -65,10 +75,10 @@ As you can see, I registered the hook to `encoder_in` and `decoder1` layers, the
 - [X] Feature map visualization
 - [X] Continue training from checkpoint
 - [X] In-training results visualized logs
+- [X] test script
 
 ## TODO
 
-- [ ] test script
 - [ ] DSCNet
 - [ ] SSL
 - [ ] nnUnet
