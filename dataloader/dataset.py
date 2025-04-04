@@ -109,6 +109,7 @@ class Data(Dataset):
         return len(self.dict_list)
 
     def __getitem__(self, idx):
+        name = self.dict_list[idx]['img'].split('/')[-1]
         data = self.loader(self.dict_list[idx])
 
         # use for debug: check the coordinate correspondence
@@ -145,7 +146,7 @@ class Data(Dataset):
             image = data['img']
             label = data['label']
 
-        return {'img':image, 'label':label}
+        return {'img':image, 'label':label, 'name':name}
 
 
 def train_transform(spatial_size, num_samples=4):

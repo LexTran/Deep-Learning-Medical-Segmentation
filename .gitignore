@@ -6,6 +6,7 @@ __pycache__/
 logs/
 save_models_randomcrop/
 datasets/
+outputs/
 *.png
 
 # C extensions
